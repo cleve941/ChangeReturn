@@ -1,5 +1,6 @@
 using ChangeReturn;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace TestChangeReturn
 {
@@ -46,5 +47,26 @@ namespace TestChangeReturn
             Assert.AreEqual(result[0.02m], 2);
             Assert.AreEqual(result[0.01m], 0);
         }
+
+        [Test]
+        public void checkCalculatorSumWithCoinSum()
+        {
+            calc.setCostAndPaid(1.5m, 2.99m);
+
+            var CalcSum = calc.calculateReturn();
+            var result = calc.calculateCoinReturns();
+
+            decimal CoinSum = 0;
+            foreach (KeyValuePair<decimal, int> keyValuePair in result)
+            {
+                if (keyValuePair.Value > 0)
+                {
+                    CoinSum += (keyValuePair.Key * keyValuePair.Value);
+                }
+            }
+            Assert.AreEqual(CalcSum, CoinSum);
+
+        }
+
     }
 }
